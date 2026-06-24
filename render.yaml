@@ -1,0 +1,120 @@
+services:
+  - type: web
+    name: danielrangelksh-auth-service
+    runtime: docker
+    plan: free
+    dockerfilePath: ./render/docker/auth-service.Dockerfile
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: EUREKA_ENABLED
+        value: "false"
+
+  - type: web
+    name: danielrangelksh-cliente
+    runtime: docker
+    plan: free
+    dockerfilePath: ./render/docker/cliente.Dockerfile
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: EUREKA_ENABLED
+        value: "false"
+
+  - type: web
+    name: danielrangelksh-reclamos
+    runtime: docker
+    plan: free
+    dockerfilePath: ./render/docker/reclamos.Dockerfile
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: EUREKA_ENABLED
+        value: "false"
+      - key: CLIENTE_SERVICE_URL
+        value: https://danielrangelksh-cliente.onrender.com/api/clientes
+
+  - type: web
+    name: danielrangelksh-productos
+    runtime: docker
+    plan: free
+    dockerfilePath: ./render/docker/productos.Dockerfile
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: EUREKA_ENABLED
+        value: "false"
+
+  - type: web
+    name: danielrangelksh-serviciotecnico
+    runtime: docker
+    plan: free
+    dockerfilePath: ./render/docker/servicioTecnico.Dockerfile
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: EUREKA_ENABLED
+        value: "false"
+      - key: PEDIDOS_SERVICE_URL
+        value: https://danielrangelksh-pedidos.onrender.com/api/pedidos
+
+  - type: web
+    name: danielrangelksh-pedidos
+    runtime: docker
+    plan: free
+    dockerfilePath: ./render/docker/pedidos.Dockerfile
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: EUREKA_ENABLED
+        value: "false"
+      - key: CLIENTE_SERVICE_URL
+        value: https://danielrangelksh-cliente.onrender.com/api/clientes
+      - key: PRODUCTO_SERVICE_URL
+        value: https://danielrangelksh-productos.onrender.com/api/productos
+
+  - type: web
+    name: danielrangelksh-devolucion
+    runtime: docker
+    plan: free
+    dockerfilePath: ./render/docker/devolucion.Dockerfile
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: EUREKA_ENABLED
+        value: "false"
+      - key: PEDIDOS_SERVICE_URL
+        value: https://danielrangelksh-pedidos.onrender.com/api/pedidos
+
+  - type: web
+    name: danielrangelksh-gateway
+    runtime: docker
+    plan: free
+    dockerfilePath: ./render/docker/api-gateway.Dockerfile
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: EUREKA_ENABLED
+        value: "false"
+      - key: AUTH_SERVICE_URL
+        value: https://danielrangelksh-auth-service.onrender.com
+      - key: CLIENTE_SERVICE_URL
+        value: https://danielrangelksh-cliente.onrender.com
+      - key: RECLAMOS_SERVICE_URL
+        value: https://danielrangelksh-reclamos.onrender.com
+      - key: PRODUCTOS_SERVICE_URL
+        value: https://danielrangelksh-productos.onrender.com
+      - key: SERVICIOTECNICO_SERVICE_URL
+        value: https://danielrangelksh-serviciotecnico.onrender.com
+      - key: PEDIDOS_SERVICE_URL
+        value: https://danielrangelksh-pedidos.onrender.com
+      - key: DEVOLUCION_SERVICE_URL
+        value: https://danielrangelksh-devolucion.onrender.com

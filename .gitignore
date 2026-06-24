@@ -1,0 +1,15 @@
+**/target/
+*.jar
+*.war
+*.class
+
+
+.idea/
+*.iml
+*.iws
+*.ipr
+
+**/logs/
+*.log
+
+.dockerignore

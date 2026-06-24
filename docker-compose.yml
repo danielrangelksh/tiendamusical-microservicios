@@ -1,0 +1,95 @@
+services:
+
+  eureka-server:
+    build: ./eureka-server
+    ports:
+      - "8761:8761"
+
+  auth-service:
+    build: ./auth-Service
+    ports:
+      - "8087:8087"
+    depends_on:
+      - eureka-server
+    environment:
+      - EUREKA_URL=http://eureka-server:8761/eureka/
+
+  cliente:
+    build: ./cliente
+    ports:
+      - "8081:8081"
+    depends_on:
+      - eureka-server
+    environment:
+      - EUREKA_URL=http://eureka-server:8761/eureka/
+
+  reclamos:
+    build: ./reclamos
+    ports:
+      - "8082:8082"
+    depends_on:
+      - eureka-server
+      - cliente
+    environment:
+      - EUREKA_URL=http://eureka-server:8761/eureka/
+      - CLIENTE_SERVICE_URL=http://cliente:8081/api/clientes
+
+  productos:
+    build: ./productos
+    ports:
+      - "8083:8083"
+    depends_on:
+      - eureka-server
+    environment:
+      - EUREKA_URL=http://eureka-server:8761/eureka/
+
+  servicio-tecnico:
+    build: ./servicioTecnico
+    ports:
+      - "8084:8084"
+    depends_on:
+      - eureka-server
+      - pedidos
+    environment:
+      - EUREKA_URL=http://eureka-server:8761/eureka/
+      - PEDIDOS_SERVICE_URL=http://pedidos:8085/api/pedidos
+
+  pedidos:
+    build: ./pedidos
+    ports:
+      - "8085:8085"
+    depends_on:
+      - eureka-server
+      - cliente
+      - productos
+    environment:
+      - EUREKA_URL=http://eureka-server:8761/eureka/
+      - CLIENTE_SERVICE_URL=http://cliente:8081/api/clientes
+      - PRODUCTO_SERVICE_URL=http://productos:8083/api/productos
+
+  devolucion:
+    build: ./devolucion
+    ports:
+      - "8086:8086"
+    depends_on:
+      - eureka-server
+      - pedidos
+    environment:
+      - EUREKA_URL=http://eureka-server:8761/eureka/
+      - PEDIDOS_SERVICE_URL=http://pedidos:8085/api/pedidos
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka-server
+      - auth-service
+      - cliente
+      - productos
+      - reclamos
+      - pedidos
+      - devolucion
+      - servicio-tecnico
+    environment:
+      - EUREKA_URL=http://eureka-server:8761/eureka/
