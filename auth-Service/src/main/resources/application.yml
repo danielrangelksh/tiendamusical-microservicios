@@ -34,3 +34,4 @@ eureka:
 
 jwt:
   secret: laClaveDeLaTiendaDeMusicaEstanLargaLoSuficiente
+  expiration-ms: 3600000
