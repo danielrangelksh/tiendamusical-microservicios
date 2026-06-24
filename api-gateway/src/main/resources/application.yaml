@@ -58,16 +58,16 @@ springdoc:
   swagger-ui:
     urls:
       - name: Auth Service
-        url: http://localhost:8087/v3/api-docs
+        url: https://danielrangelksh-auth-service.onrender.com/v3/api-docs
       - name: Cliente Service
-        url: http://localhost:8081/v3/api-docs
+        url: https://danielrangelksh-cliente.onrender.com/v3/api-docs
       - name: Reclamos Service
-        url: http://localhost:8082/v3/api-docs
+        url: https://danielrangelksh-reclamos.onrender.com/v3/api-docs
       - name: Productos Service
-        url: http://localhost:8083/v3/api-docs
+        url: https://danielrangelksh-productos.onrender.com/v3/api-docs
       - name: ServicioTecnico Service
-        url: http://localhost:8084/v3/api-docs
+        url: https://danielrangelksh-serviciotecnico.onrender.com/v3/api-docs
       - name: Pedidos Service
-        url: http://localhost:8085/v3/api-docs
+        url: https://danielrangelksh-pedidos.onrender.com/v3/api-docs
       - name: Devolución Service
-        url: http://localhost:8086/v3/api-docs
+        url: https://danielrangelksh-devolucion.onrender.com/v3/api-docs
